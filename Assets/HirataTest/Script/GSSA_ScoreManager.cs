@@ -8,7 +8,7 @@ public class GSSA_ScoreManager : MonoBehaviour
 {
     string playerName = "";
 
-    int score = 100;
+    int score = 0;
 
     void Start()
     {
@@ -44,11 +44,31 @@ public class GSSA_ScoreManager : MonoBehaviour
         var so = query.Result.FirstOrDefault();
         if (so != null)
         {
-            Debug.Log(so["name"] + ">" + so["message"]);
+            Debug.Log("データ更新：" + so["name"] + ">" + so["message"]);
             so["message"] = score;
             yield return so.SaveAsync();
         }
     }
 
-    
+    public void DataDelete()
+    {
+        //データの消去コルーチンを呼ぶ
+        StartCoroutine(ChatLogDelete());
+    }
+    //データ消去関数
+    private IEnumerator ChatLogDelete()
+    {
+        var query = new SpreadSheetQuery("Chat");
+        query.Where("name", "=", playerName);
+        yield return query.FindAsync();
+
+        var so = query.Result.FirstOrDefault();
+        if (so != null)
+        {
+            Debug.Log("データ消去：" + so["name"] + ">" + so["message"]);
+            so["name"] = "";
+            so["message"] = "";
+            yield return so.SaveAsync();
+        }
+    }
 }
