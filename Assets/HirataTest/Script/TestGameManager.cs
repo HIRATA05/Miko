@@ -12,8 +12,40 @@ public class TestGameManager : MonoBehaviour
         ScoreRanking,
     }
     GameState gameState = GameState.Title;
+    //ゲームステート画面
+    [SerializeField] private GameObject TitlePanel;
+    [SerializeField] private GameObject InGamePanel;
+    [SerializeField] private GameObject RankingPanel;
 
-    private int START_SCORE = 0;
+    //構造体の定義
+    public struct ScoreInfo 
+    {
+        public string name;
+        public int score;
+
+        public ScoreInfo(string name, int score)
+        {
+            this.name = name;
+            this.score = score;
+        }
+    }
+    ScoreInfo scoreInfo = new ScoreInfo("", 0);
+
+    struct RankingText
+    {
+        public Text name;
+        public Text score;
+    }
+    [SerializeField] private RankingText rankingText;
+
+    [SerializeField] private Text rankingNames;
+    [SerializeField] private Text rankingScores;
+    //スコアランキングのリスト　10位まで入れて表示する
+    public static List<ScoreInfo> ScoreRanking = new List<ScoreInfo>();
+
+    //仮のスコア
+    [SerializeField] private Text ViewScore;
+    private int SCORE = 0;
 
     [Header("スプレッドシートのスコア管理スクリプト")]
     [SerializeField] private GSSA_ScoreManager gssa_Score;
@@ -26,7 +58,7 @@ public class TestGameManager : MonoBehaviour
 
     void Start()
     {
-        
+        gssa_Score.DataGet();
     }
 
     
@@ -34,14 +66,34 @@ public class TestGameManager : MonoBehaviour
     {
         switch (gameState)
         {
-            case GameState.Title:
-
+            case GameState.Title://名前入力
+                if (!TitlePanel.activeSelf) TitlePanel.SetActive(true);
+                if (InGamePanel.activeSelf) InGamePanel.SetActive(false);
+                if (RankingPanel.activeSelf) RankingPanel.SetActive(false);
+                //キーで切り替え
+                if (Input.GetKeyDown(KeyCode.Q)) { gameState = GameState.InGame; }
                 break;
-            case GameState.ScoreRanking:
-
+            case GameState.InGame://ランキングに移動時scoreInfoのデータをシートに出力
+                if (TitlePanel.activeSelf) TitlePanel.SetActive(false);
+                if (!InGamePanel.activeSelf) InGamePanel.SetActive(true);
+                if (RankingPanel.activeSelf) RankingPanel.SetActive(false);
+                //キーで切り替え
+                if (Input.GetKeyDown(KeyCode.P)) { gameState = GameState.ScoreRanking; }
                 break;
-            case GameState.InGame:
+            case GameState.ScoreRanking://ランキングに反映　
+                if (TitlePanel.activeSelf) TitlePanel.SetActive(false);
+                if (InGamePanel.activeSelf) InGamePanel.SetActive(false);
+                if (!RankingPanel.activeSelf) RankingPanel.SetActive(true);
 
+                //ランキングのリストを10位まで作成
+                for (int i = 0; i < 10; i++)
+                {
+
+                }
+
+                //スコアを表示
+                rankingNames.text = scoreInfo.name;
+                rankingScores.text = scoreInfo.score.ToString();
                 break;
         }
     }
@@ -50,5 +102,13 @@ public class TestGameManager : MonoBehaviour
     public void NameDisplay()
     {
         playerName.text = nameInputField.text;
+        scoreInfo.name = playerName.text;
+    }
+    //スコア加算ボタン
+    public void ScoreAddButton()
+    {
+        SCORE += 1;
+        ViewScore.text = SCORE.ToString();
+        scoreInfo.score = SCORE;
     }
 }

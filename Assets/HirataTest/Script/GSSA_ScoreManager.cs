@@ -32,10 +32,10 @@ public class GSSA_ScoreManager : MonoBehaviour
     public void DataUpdate()
     {
         //データの更新コルーチンを呼ぶ
-        StartCoroutine(ChatLogGetIterator());
+        StartCoroutine(ChatLogUpdateIterator());
     }
     //データの更新コルーチン
-    private IEnumerator ChatLogGetIterator()
+    private IEnumerator ChatLogUpdateIterator()
     {
         var query = new SpreadSheetQuery("Chat");
         query.Where("name", "=", playerName);
@@ -47,6 +47,23 @@ public class GSSA_ScoreManager : MonoBehaviour
             Debug.Log("データ更新：" + so["name"] + ">" + so["message"]);
             so["message"] = score;
             yield return so.SaveAsync();
+        }
+    }
+
+    public void DataGet()
+    {
+        //データの取得コルーチンを呼ぶ
+        StartCoroutine(ChatLogGetIterator());
+    }
+    private IEnumerator ChatLogGetIterator()
+    {
+        var query = new SpreadSheetQuery("Chat");
+        //query.Where("name", "=", "かつーき");
+        yield return query.FindAsync();
+
+        foreach (var so in query.Result)
+        {
+            Debug.Log(so["name"] + ">" + so["message"]);
         }
     }
 
