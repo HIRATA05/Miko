@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using GSSA;
 using System.Linq;
+using static TestGameManager;
+using System;
 
 public class GSSA_ScoreManager : MonoBehaviour
 {
-    string playerName = "";
-
-    int score = 0;
+    [SerializeField] private TestGameManager testGameManager;
+    
 
     void Start()
     {
@@ -21,24 +22,24 @@ public class GSSA_ScoreManager : MonoBehaviour
     }
 
     //データの保存関数
-    public void ChatLogSave()
+    public void ChatLogSave(string name, int score)
     {
         var so = new SpreadSheetObject("Chat");
-        so["name"] = playerName;
+        so["name"] = name;
         so["message"] = score;
         so.SaveAsync();
     }
 
-    public void DataUpdate()
+    public void DataUpdate(string name, int score)
     {
         //データの更新コルーチンを呼ぶ
-        StartCoroutine(ChatLogUpdateIterator());
+        StartCoroutine(ChatLogUpdateIterator(name, score));
     }
     //データの更新コルーチン
-    private IEnumerator ChatLogUpdateIterator()
+    private IEnumerator ChatLogUpdateIterator(string name, int score)
     {
         var query = new SpreadSheetQuery("Chat");
-        query.Where("name", "=", playerName);
+        query.Where("name", "=", name);
         yield return query.FindAsync();
 
         var so = query.Result.FirstOrDefault();
@@ -55,7 +56,7 @@ public class GSSA_ScoreManager : MonoBehaviour
         //データの取得コルーチンを呼ぶ
         StartCoroutine(ChatLogGetIterator());
     }
-    private IEnumerator ChatLogGetIterator()
+    public IEnumerator ChatLogGetIterator()
     {
         var query = new SpreadSheetQuery("Chat");
         //query.Where("name", "=", "かつーき");
@@ -64,19 +65,44 @@ public class GSSA_ScoreManager : MonoBehaviour
         foreach (var so in query.Result)
         {
             Debug.Log(so["name"] + ">" + so["message"]);
+
+            string s = so["message"].ToString();
+
+            //string,int変換してリストに加える
+            testGameManager.Scorelist.Add(new ScoreInfo { name = so["name"].ToString(), score = int.Parse(s) });
+        }
+        //スコアを入れ替える
+        testGameManager.Scorelist.Sort((a, b) => b.score - a.score);
+        
+        //Debug.Log("要素数：" + testGameManager.Scorelist.Count);
+
+        //10位分getScoreInfoに入れる
+        for (int i = 0; i < 10; i++)
+        {
+            //リストの範囲内か確認
+            if((i >= 0) && (i < testGameManager.Scorelist.Count))
+            {
+                testGameManager.getScoreInfo[i].score = testGameManager.Scorelist[i].score;
+                testGameManager.getScoreInfo[i].name = testGameManager.Scorelist[i].name;
+            }
+            else
+            {
+                testGameManager.getScoreInfo[i] = new ScoreInfo("", 0);
+            }
+            Debug.Log("取得したリスト：" + testGameManager.getScoreInfo[i].name);
         }
     }
 
-    public void DataDelete()
+    public void DataDelete(string name)
     {
         //データの消去コルーチンを呼ぶ
-        StartCoroutine(ChatLogDelete());
+        StartCoroutine(ChatLogDelete(name));
     }
     //データ消去関数
-    private IEnumerator ChatLogDelete()
+    private IEnumerator ChatLogDelete(string name)
     {
         var query = new SpreadSheetQuery("Chat");
-        query.Where("name", "=", playerName);
+        query.Where("name", "=", name);
         yield return query.FindAsync();
 
         var so = query.Result.FirstOrDefault();

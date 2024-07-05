@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestGameManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
     enum GameState
     {
@@ -63,7 +63,7 @@ public class TestGameManager : MonoBehaviour
         RankingDisplay = false;
     }
 
-    
+
     void Update()
     {
         switch (gameState)
@@ -99,7 +99,7 @@ public class TestGameManager : MonoBehaviour
                     RankingDisplay = true;
 
                     StartCoroutine(DisplayRanking());
-                    
+
                     //Invoke("DisplayRanking", 5.0f);
                 }
 

@@ -782,8 +782,28 @@ MonoBehaviour:
   TitlePanel: {fileID: 1809454}
   InGamePanel: {fileID: 821433901}
   RankingPanel: {fileID: 1871763466}
-  rankingNames: {fileID: 657581731}
-  rankingScores: {fileID: 958365929}
+  rankingNames:
+  - {fileID: 657581731}
+  - {fileID: 614112118}
+  - {fileID: 1673093890}
+  - {fileID: 514166592}
+  - {fileID: 946629976}
+  - {fileID: 113923466}
+  - {fileID: 1683838906}
+  - {fileID: 631426169}
+  - {fileID: 108542487}
+  - {fileID: 1881716984}
+  rankingScores:
+  - {fileID: 958365929}
+  - {fileID: 376716029}
+  - {fileID: 946126729}
+  - {fileID: 1251472883}
+  - {fileID: 906108091}
+  - {fileID: 892921390}
+  - {fileID: 590510427}
+  - {fileID: 284703128}
+  - {fileID: 2087669567}
+  - {fileID: 1895619931}
   ViewScore: {fileID: 1473840116}
   gssa_Score: {fileID: 1775605354}
   nameInputField: {fileID: 1043093736}
@@ -4227,6 +4247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2662dcf7d8a2144aae8ad38069076c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testGameManager: {fileID: 472596405}
 --- !u!1 &1871763466
 GameObject:
   m_ObjectHideFlags: 0
