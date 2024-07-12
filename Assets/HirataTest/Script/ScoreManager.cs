@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    //タイトル　インゲーム　ランキングの３シーンでアタッチ 関数を呼び出してスコアを管理する
+
+
+    // /*
+    //テスト時に使用したステート 実際に組み込む時はコメントアウトで動作しないようにすること
     enum GameState
     {
         Title,
@@ -16,8 +21,9 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private GameObject TitlePanel;
     [SerializeField] private GameObject InGamePanel;
     [SerializeField] private GameObject RankingPanel;
-
-    //構造体の定義
+    // */
+    
+    //構造体の定義---
     public struct ScoreInfo
     {
         public string name;
@@ -29,46 +35,66 @@ public class ScoreManager : MonoBehaviour
             this.score = score;
         }
     }
-    //ゲーム中のスコアデータを入れる
-    ScoreInfo scoreInfo = new ScoreInfo("", 0);
+    
     //シートから取得する
     public ScoreInfo[] getScoreInfo = new ScoreInfo[10];
 
     //スコアソート用のリストを作成
     public List<ScoreInfo> Scorelist = new List<ScoreInfo>();
 
-    //ランキング表示のフラグ
-    bool RankingDisplay = false;
 
+
+    //タイトル画面で使用する変数---
+    [Header("プレイヤー名入力のフィールド")]
+    [SerializeField] private InputField nameInputField;
+
+    [Header("名前入力時に表示するTEXT")]
+    [SerializeField] private Text playerName;
+
+
+    // /*
+    //ランキング画面は個別のシーンを作成したため 実際に組み込む時はコメントアウトで動作しないようにすること
+    //ランキング画面で使用する変数---
+    //ランキングで表示するテキストの配列
     [SerializeField] private Text[] rankingNames = new Text[10];
     [SerializeField] private Text[] rankingScores = new Text[10];
-    //スコアランキングのリスト　10位まで入れて表示する
-    public static List<ScoreInfo> ScoreRanking = new List<ScoreInfo>();
 
     //ランキング表示の待機画面
     [SerializeField] private GameObject WaitPanal;
 
-    //仮のスコア
+    //ランキング表示のフラグ
+    bool RankingDisplay = false;
+
+
+
+    //ボタンで加算したスコアを表示 テスト時に使用した
     [SerializeField] private Text ViewScore;
-    private int SCORE = 0;
+    // */
+
+
+    //スコアを管理するために使う色々
 
     [Header("スプレッドシートのスコア管理スクリプト")]
     [SerializeField] private GSSA_ScoreManager gssa_Score;
 
-    [Header("プレイヤー名入力のフィールド")]
-    [SerializeField] private InputField nameInputField;
+    //別のシーンでもスコア管理ができるようにスクリプタブルを用意
+    [Header("スコアのスクリプタブル")]
+    [SerializeField] private ScoreData scoreData;
 
-    //表示するtext
-    [SerializeField] private Text playerName;
 
     void Start()
     {
-        RankingDisplay = false;
+        //実際に組み込む時はコメントアウトで動作しないようにすること
+        // /*
+        ScoreInit(scoreData);
+        // */
     }
 
-
+    
     void Update()
     {
+        //実際に組み込む時はコメントアウトで動作しないようにすること
+        // /*
         switch (gameState)
         {
             case GameState.Title://名前入力
@@ -85,8 +111,9 @@ public class ScoreManager : MonoBehaviour
                 //キーで切り替え
                 if (Input.GetKeyDown(KeyCode.P))
                 {
-                    //スコアをスプレッドシートに保存
-                    gssa_Score.ChatLogSave(scoreInfo.name, scoreInfo.score);
+                    //スコアをスプレッドシートに保存 
+                    gssa_Score.ChatLogSave(scoreData.Name, scoreData.Score);
+                    //gssa_Score.ChatLogSave(scoreInfo.name, scoreInfo.score);
 
                     gameState = GameState.ScoreRanking;
                 }
@@ -101,17 +128,18 @@ public class ScoreManager : MonoBehaviour
                 {
                     RankingDisplay = true;
 
+                    //コルーチンを使ってランキングを表示 ランキング画面でこれを使う
                     StartCoroutine(DisplayRanking());
-
-                    //Invoke("DisplayRanking", 5.0f);
                 }
 
                 break;
         }
+        // */
     }
 
     private IEnumerator DisplayRanking()
     {
+        //スコアの取得が終了するまで待機する
         yield return gssa_Score.ChatLogGetIterator();
         //gssa_Score.DataGet();
 
@@ -127,30 +155,42 @@ public class ScoreManager : MonoBehaviour
             //スコアを表示
             rankingNames[i].text = getScoreInfo[i].name;
             rankingScores[i].text = getScoreInfo[i].score.ToString();
-            /*
-            if(scoreInfo.name != "")
-            {
-                //スコアを表示
-                rankingNames[i].text = scoreInfo.name;
-                rankingScores[i].text = scoreInfo.score.ToString();
-            }
-            */
+            
         }
         //リストの中身を解放する
         Scorelist.Clear();
     }
 
-    //名前表示
+    //入力した名前を画面に表示してスクリプタブルに保存 タイトル画面の名前入力時に名前入力フィールドに使う OnEndEdit
     public void NameDisplay()
     {
         playerName.text = nameInputField.text;
-        scoreInfo.name = playerName.text;
+
+        //scoreInfo.name = playerName.text;
+        scoreData.Name = nameInputField.text;
     }
-    //スコア加算ボタン
+
+    //引数をスクリプタブルのスコアに保存する ゲーム終了時の最終的なスコアを入れること
+    public void ScoreSave(int score)
+    {
+        scoreData.Score = score;
+    }
+
+    //スクリプタブルのスコアを初期化する タイトル画面のスタート関数で使うこと
+    public void ScoreInit(ScoreData scoreData)
+    {
+        scoreData.Name = "";
+        scoreData.Score = 0;
+    }
+
+    //スコア加算ボタン テスト用に作成したもの
     public void ScoreAddButton()
     {
-        SCORE += 1;
-        ViewScore.text = SCORE.ToString();
-        scoreInfo.score = SCORE;
+        //SCORE += 1;
+        scoreData.Score += 1;
+        //ViewScore.text = SCORE.ToString();
+        ViewScore.text = scoreData.Score.ToString();
+        //scoreInfo.score = SCORE;
+        //scoreInfo.score = scoreData.Score;
     }
 }
