@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
+    [SerializeField]
+    UnityEngine.UI.Image clearImage;
+
     public Transform target;
     public Transform stopPosition;
 
@@ -17,6 +20,8 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         m_camera = GetComponent<Camera>();
+        
+        this.clearImage.gameObject.SetActive(false);
     }
 
     void LateUpdate()
@@ -49,6 +54,8 @@ public class CameraController : MonoBehaviour
         {
             player.SendMessage("Clear", SendMessageOptions.DontRequireReceiver);
         }
+
+        this.clearImage.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(nextLevel);
