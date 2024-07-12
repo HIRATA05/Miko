@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using GSSA;
 using System.Linq;
-using static ScoreManager;
+using static RankingManager;
 using System;
 
-public class GSSA_ScoreManager : MonoBehaviour
+public class SSManager : MonoBehaviour
 {
-    [SerializeField] private ScoreManager testGameManager;
-    
+    [SerializeField] private RankingManager rankingManager;
+
 
     void Start()
     {
@@ -69,27 +69,27 @@ public class GSSA_ScoreManager : MonoBehaviour
             string s = so["message"].ToString();
 
             //string,int変換してリストに加える
-            testGameManager.Scorelist.Add(new ScoreInfo { name = so["name"].ToString(), score = int.Parse(s) });
+            rankingManager.Scorelist.Add(new ScoreInfo { name = so["name"].ToString(), score = int.Parse(s) });
         }
         //スコアを入れ替える
-        testGameManager.Scorelist.Sort((a, b) => b.score - a.score);
-        
+        rankingManager.Scorelist.Sort((a, b) => b.score - a.score);
+
         //Debug.Log("要素数：" + testGameManager.Scorelist.Count);
 
         //10位分getScoreInfoに入れる
         for (int i = 0; i < 10; i++)
         {
             //リストの範囲内か確認
-            if((i >= 0) && (i < testGameManager.Scorelist.Count))
+            if ((i >= 0) && (i < rankingManager.Scorelist.Count))
             {
-                testGameManager.getScoreInfo[i].score = testGameManager.Scorelist[i].score;
-                testGameManager.getScoreInfo[i].name = testGameManager.Scorelist[i].name;
+                rankingManager.getScoreInfo[i].score = rankingManager.Scorelist[i].score;
+                rankingManager.getScoreInfo[i].name = rankingManager.Scorelist[i].name;
             }
             else
             {
-                testGameManager.getScoreInfo[i] = new ScoreInfo("", 0);
+                rankingManager.getScoreInfo[i] = new ScoreInfo("", 0);
             }
-            Debug.Log("取得したリスト：" + testGameManager.getScoreInfo[i].name);
+            Debug.Log("取得したリスト：" + rankingManager.getScoreInfo[i].name);
         }
     }
 

@@ -5,8 +5,6 @@ using UnityEngine;
 using GSSA;
 public class GSSATest : MonoBehaviour
 {
-    string playerName = "";
-
     int score = 100;
 
     void Start()
