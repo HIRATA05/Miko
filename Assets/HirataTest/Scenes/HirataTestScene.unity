@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 472596406}
   - component: {fileID: 472596405}
   m_Layer: 0
-  m_Name: TestGameManager
+  m_Name: ScoreManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -782,6 +782,8 @@ MonoBehaviour:
   TitlePanel: {fileID: 1809454}
   InGamePanel: {fileID: 821433901}
   RankingPanel: {fileID: 1871763466}
+  nameInputField: {fileID: 1043093736}
+  playerName: {fileID: 1627258202}
   rankingNames:
   - {fileID: 657581731}
   - {fileID: 614112118}
@@ -807,8 +809,6 @@ MonoBehaviour:
   WaitPanal: {fileID: 2132674782}
   ViewScore: {fileID: 1473840116}
   gssa_Score: {fileID: 1775605354}
-  nameInputField: {fileID: 1043093736}
-  playerName: {fileID: 1627258202}
   scoreData: {fileID: 11400000, guid: bdb47c99576f6274682d111c8805b7f5, type: 2}
 --- !u!4 &472596406
 Transform:
@@ -4280,7 +4280,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1775605353}
-  - component: {fileID: 1775605352}
   - component: {fileID: 1775605354}
   m_Layer: 0
   m_Name: GSSA
@@ -4289,18 +4288,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1775605352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775605351}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7cf9a5a9a2296b4eba9c46e6c9abcbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1775605353
 Transform:
   m_ObjectHideFlags: 0
@@ -4328,7 +4315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2662dcf7d8a2144aae8ad38069076c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testGameManager: {fileID: 472596405}
+  scoreManager: {fileID: 0}
 --- !u!1 &1871763466
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,9 +11,18 @@ public class StartController : MonoBehaviour
     [SerializeField]
     private KeyCode enter = KeyCode.X;
 
+    [SerializeField]
+    private ScoreManager scoreManager;
+
+    void Start()
+    {
+        //スコアの初期化
+        scoreManager.ScoreInit(scoreManager.scoreData);
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(enter))
+        if (Input.GetKeyDown(enter) && scoreManager.scoreData.Name != "")
         {
             StartCoroutine(LoadStage());
         }

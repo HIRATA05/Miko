@@ -17,6 +17,13 @@ public class CameraController : MonoBehaviour
 
     private Camera m_camera;
 
+    [Header("スプレッドシートのスコア管理スクリプト")]
+    [SerializeField] private GSSAWorld gssa_Score;
+
+    //別のシーンでもスコア管理ができるようにスクリプタブルを用意
+    [Header("スコアのスクリプタブル")]
+    [SerializeField] public ScoreData scoreData;
+
     void Awake()
     {
         m_camera = GetComponent<Camera>();
@@ -41,6 +48,8 @@ public class CameraController : MonoBehaviour
 
         if (stopPosition.position.x - right.x < 0)
         {
+            //スコアをスプレッドシートに保存 
+            gssa_Score.ChatLogSave(scoreData.Name, scoreData.Score);
             StartCoroutine(INTERNAL_Clear());
             enabled = false;
         }
@@ -57,7 +66,10 @@ public class CameraController : MonoBehaviour
 
         this.clearImage.gameObject.SetActive(true);
 
+        
+
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(nextLevel);
+        //SceneManager.LoadScene(nextLevel);
+        SceneManager.LoadScene("RankingScene");
     }
 }

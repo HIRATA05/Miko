@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
     //タイトル　インゲーム　ランキングの３シーンでアタッチ 関数を呼び出してスコアを管理する
 
 
-    // /*
+    /*
     //テスト時に使用したステート 実際に組み込む時はコメントアウトで動作しないようにすること
     enum GameState
     {
@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private GameObject TitlePanel;
     [SerializeField] private GameObject InGamePanel;
     [SerializeField] private GameObject RankingPanel;
-    // */
+    */
     
     //構造体の定義---
     public struct ScoreInfo
@@ -52,7 +52,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text playerName;
 
 
-    // /*
+    /*
     //ランキング画面は個別のシーンを作成したため 実際に組み込む時はコメントアウトで動作しないようにすること
     //ランキング画面で使用する変数---
     //ランキングで表示するテキストの配列
@@ -69,7 +69,7 @@ public class ScoreManager : MonoBehaviour
 
     //ボタンで加算したスコアを表示 テスト時に使用した
     [SerializeField] private Text ViewScore;
-    // */
+    */
 
 
     //スコアを管理するために使う色々
@@ -79,22 +79,22 @@ public class ScoreManager : MonoBehaviour
 
     //別のシーンでもスコア管理ができるようにスクリプタブルを用意
     [Header("スコアのスクリプタブル")]
-    [SerializeField] private ScoreData scoreData;
+    [SerializeField] public ScoreData scoreData;
 
 
     void Start()
     {
         //実際に組み込む時はコメントアウトで動作しないようにすること
-        // /*
+        /*
         ScoreInit(scoreData);
-        // */
+        */
     }
 
     
     void Update()
     {
         //実際に組み込む時はコメントアウトで動作しないようにすること
-        // /*
+        /*
         switch (gameState)
         {
             case GameState.Title://名前入力
@@ -134,9 +134,9 @@ public class ScoreManager : MonoBehaviour
 
                 break;
         }
-        // */
+        */
     }
-
+    /*
     private IEnumerator DisplayRanking()
     {
         //スコアの取得が終了するまで待機する
@@ -160,6 +160,7 @@ public class ScoreManager : MonoBehaviour
         //リストの中身を解放する
         Scorelist.Clear();
     }
+    */
 
     //入力した名前を画面に表示してスクリプタブルに保存 タイトル画面の名前入力時に名前入力フィールドに使う OnEndEdit
     public void NameDisplay()
@@ -183,6 +184,7 @@ public class ScoreManager : MonoBehaviour
         scoreData.Score = 0;
     }
 
+    /*
     //スコア加算ボタン テスト用に作成したもの
     public void ScoreAddButton()
     {
@@ -193,4 +195,5 @@ public class ScoreManager : MonoBehaviour
         //scoreInfo.score = SCORE;
         //scoreInfo.score = scoreData.Score;
     }
+    */
 }

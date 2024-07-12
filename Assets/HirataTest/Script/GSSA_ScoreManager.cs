@@ -8,7 +8,7 @@ using System;
 
 public class GSSA_ScoreManager : MonoBehaviour
 {
-    [SerializeField] private ScoreManager testGameManager;
+    [SerializeField] private ScoreManager scoreManager;
     
 
     void Start()
@@ -69,27 +69,27 @@ public class GSSA_ScoreManager : MonoBehaviour
             string s = so["message"].ToString();
 
             //string,int変換してリストに加える
-            testGameManager.Scorelist.Add(new ScoreInfo { name = so["name"].ToString(), score = int.Parse(s) });
+            scoreManager.Scorelist.Add(new ScoreInfo { name = so["name"].ToString(), score = int.Parse(s) });
         }
         //スコアを入れ替える
-        testGameManager.Scorelist.Sort((a, b) => b.score - a.score);
-        
-        //Debug.Log("要素数：" + testGameManager.Scorelist.Count);
+        scoreManager.Scorelist.Sort((a, b) => b.score - a.score);
+
+        //Debug.Log("要素数：" + scoreManager.Scorelist.Count);
 
         //10位分getScoreInfoに入れる
         for (int i = 0; i < 10; i++)
         {
             //リストの範囲内か確認
-            if((i >= 0) && (i < testGameManager.Scorelist.Count))
+            if((i >= 0) && (i < scoreManager.Scorelist.Count))
             {
-                testGameManager.getScoreInfo[i].score = testGameManager.Scorelist[i].score;
-                testGameManager.getScoreInfo[i].name = testGameManager.Scorelist[i].name;
+                scoreManager.getScoreInfo[i].score = scoreManager.Scorelist[i].score;
+                scoreManager.getScoreInfo[i].name = scoreManager.Scorelist[i].name;
             }
             else
             {
-                testGameManager.getScoreInfo[i] = new ScoreInfo("", 0);
+                scoreManager.getScoreInfo[i] = new ScoreInfo("", 0);
             }
-            Debug.Log("取得したリスト：" + testGameManager.getScoreInfo[i].name);
+            Debug.Log("取得したリスト：" + scoreManager.getScoreInfo[i].name);
         }
     }
 

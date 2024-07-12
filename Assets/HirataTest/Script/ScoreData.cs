@@ -9,4 +9,6 @@ public class ScoreData : ScriptableObject
 
     public string Name;
 
+    //public int gennzaiScore;
+
 }

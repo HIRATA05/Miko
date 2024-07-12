@@ -9,6 +9,10 @@ public class PointController : MonoBehaviour
 
     private static PointController m_instance;
 
+    //別のシーンでもスコア管理ができるようにスクリプタブルを用意
+    [Header("スコアのスクリプタブル")]
+    [SerializeField] public ScoreData scoreData;
+
     public static PointController instance
     {
         get
@@ -25,5 +29,6 @@ public class PointController : MonoBehaviour
     {
         coin.text = (Convert.ToInt32(coin.text) + 1).ToString("00");
         total.text = (Convert.ToInt32(total.text) + 100).ToString("0000000");
+        scoreData.Score += 100;
     }
 }
