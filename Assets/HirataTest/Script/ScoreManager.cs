@@ -45,6 +45,9 @@ public class ScoreManager : MonoBehaviour
     //スコアランキングのリスト　10位まで入れて表示する
     public static List<ScoreInfo> ScoreRanking = new List<ScoreInfo>();
 
+    //ランキング表示の待機画面
+    [SerializeField] private GameObject WaitPanal;
+
     //仮のスコア
     [SerializeField] private Text ViewScore;
     private int SCORE = 0;
@@ -111,6 +114,12 @@ public class ScoreManager : MonoBehaviour
     {
         yield return gssa_Score.ChatLogGetIterator();
         //gssa_Score.DataGet();
+
+        //待機画面非表示
+        if (WaitPanal.activeSelf)
+        {
+            WaitPanal.SetActive(false);
+        }
 
         //ランキングのリストを10位まで表示
         for (int i = 0; i < 10; i++)
