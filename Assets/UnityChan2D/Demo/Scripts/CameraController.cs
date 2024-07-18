@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     private Camera m_camera;
 
     [Header("スプレッドシートのスコア管理スクリプト")]
-    [SerializeField] private GSSAWorld gssa_Score;
+    [SerializeField] private GSSA_ScoreManager gssa_Score;
 
     //別のシーンでもスコア管理ができるようにスクリプタブルを用意
     [Header("スコアのスクリプタブル")]

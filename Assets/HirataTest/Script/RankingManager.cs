@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RankingManager : MonoBehaviour
@@ -58,6 +59,12 @@ public class RankingManager : MonoBehaviour
 
             //コルーチンを使ってランキングを表示 ランキング画面でこれを使う
             StartCoroutine(DisplayRanking());
+        }
+
+        //スペースキーでタイトルに移動　Startシーン
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SceneManager.LoadScene("Start");
         }
     }
 

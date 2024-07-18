@@ -13429,6 +13429,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1415689172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1415689174}
+  - component: {fileID: 1415689173}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1415689173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415689172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74dabfd251916ae439efa341918e6e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gssa_Score: {fileID: 1491827498}
+  scoreData: {fileID: 11400000, guid: bdb47c99576f6274682d111c8805b7f5, type: 2}
+--- !u!4 &1415689174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415689172}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1429696256
 GameObject:
   m_ObjectHideFlags: 0
@@ -14744,9 +14790,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1491827495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fefe9ef9d046e4ca5c5f535455d798, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c2662dcf7d8a2144aae8ad38069076c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreManager: {fileID: 1415689173}
 --- !u!1 &1499087520
 GameObject:
   m_ObjectHideFlags: 0
@@ -22099,4 +22146,5 @@ SceneRoots:
   - {fileID: 7584957500519496534}
   - {fileID: 1481943973}
   - {fileID: 1491827497}
+  - {fileID: 1415689174}
   - {fileID: 961332524}

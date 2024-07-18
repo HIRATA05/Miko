@@ -43,14 +43,14 @@ public class ScoreManager : MonoBehaviour
     public List<ScoreInfo> Scorelist = new List<ScoreInfo>();
 
 
-
+    /*
     //タイトル画面で使用する変数---
     [Header("プレイヤー名入力のフィールド")]
     [SerializeField] private InputField nameInputField;
 
     [Header("名前入力時に表示するTEXT")]
     [SerializeField] private Text playerName;
-
+    */
 
     /*
     //ランキング画面は個別のシーンを作成したため 実際に組み込む時はコメントアウトで動作しないようにすること
@@ -161,7 +161,7 @@ public class ScoreManager : MonoBehaviour
         Scorelist.Clear();
     }
     */
-
+    /*
     //入力した名前を画面に表示してスクリプタブルに保存 タイトル画面の名前入力時に名前入力フィールドに使う OnEndEdit
     public void NameDisplay()
     {
@@ -170,7 +170,7 @@ public class ScoreManager : MonoBehaviour
         //scoreInfo.name = playerName.text;
         scoreData.Name = nameInputField.text;
     }
-
+    */
     //引数をスクリプタブルのスコアに保存する ゲーム終了時の最終的なスコアを入れること
     public void ScoreSave(int score)
     {
